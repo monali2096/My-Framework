@@ -8,7 +8,7 @@ router.get(
         params: {
             type: "object",
             properties: {
-                id: {
+                id: { 
                     type: "string",
                     format: "objectId"
                 }
