@@ -22,6 +22,6 @@ export default {
         obj.each = _.each(data, function(n) {
             n.type = "demo"
         })
-        callback(null, obj)
+        
     }
 }
