@@ -22,6 +22,11 @@ export default {
         obj.each = _.each(data, function(n) {
             n.type = "demo"
         })
+        data = ["one", "two", "three", "four", "five", "six"]
+        var obj = _.chunk(data, 3)
+        console.log(obj)
+        var obj = _.difference([2, 1], [2, 3])
+
         callback(null, obj)
     }
 }

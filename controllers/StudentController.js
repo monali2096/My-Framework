@@ -1,4 +1,3 @@
-require "md5";
 const router = Router()
 router.get("/", (req, res) => {
     res.callback(null, md5("hello"))
