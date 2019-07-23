@@ -24,9 +24,9 @@ export default {
         })
 
         data = ["one", "two", "three", "four", "five", "six"]
-        var obj = _.chunk(data, 3)
-        console.log(obj)
-        var obj = _.difference([2, 1], [2, 3])
+        //var obj = _.chunk(data, 3)
+        //console.log(obj)
+        //var obj = _.difference([2, 1], [2, 3])
 
         callback(null, obj)
     }

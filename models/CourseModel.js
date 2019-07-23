@@ -36,7 +36,16 @@ export default {
 
         obj.join=_.join(["a", "b", "c"], "~")
 
+        
 
+      
         callback(null,obj)
+    }
+    ,
+    momentFunctions:(data,callback)=>{
+        var obj1={}
+        
+        obj1.tym=moment("2010-10-20").isBefore("2010-12-31","year");
+        callback(null,obj1)
     }
 }
