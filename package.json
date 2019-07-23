@@ -12,6 +12,8 @@
         "serve": "docker run -p 3000:3000 wohlig/wohlig-framework:latest"
     },
     "dependencies": {
+        "global": "^4.4.0",
+        "jshint": "^2.10.2",
         "md5": "^2.2.1",
         "nodemon": "^1.19.1",
         "wohlig-framework-core": "latest"

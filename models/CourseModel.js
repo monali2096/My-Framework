@@ -25,8 +25,20 @@ export default {
         obj.each =_.each(data,function(n){
             n.type = "demo"
         })
+        obj.chunk=_.chunk(data,2)
         
+        obj.concat=_.concat(data,"supriya")
+
         
+        obj.difference=_.findIndex(data, function(n)
+        { 
+            n.email == "abcdgmail"
+        })
+
+        obj.drop=_.dropRight(data,1)
+
+        obj.join=_.join(["a", "b", "c"], "~")
+
         callback(null,obj)
     }
     
