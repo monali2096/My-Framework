@@ -1,4 +1,9 @@
+import DivisionModel from "../models/DivisionModel"
+
 const router = Router()
+router.get("/lodash/:id", (req, res) => {
+    DivisionModel.lodashFunctions(req.body, res.callback)
+})
 router.get("/", (req, res) => {
     DivisionModel.search(req.query, res.callback)
 })

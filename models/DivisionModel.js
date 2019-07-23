@@ -16,5 +16,12 @@ export default {
     saveData: (data, callback) => {
         const division = new Division(data)
         division.save(callback)
+    },
+    lodashFunctions: (data, callback) => {
+        var obj = {}
+        obj.each = _.each(data, function(n) {
+            n.type = "demo"
+        })
+        callback(null, obj)
     }
 }

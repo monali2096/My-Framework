@@ -1,6 +1,8 @@
+require "md5";
 const router = Router()
 router.get("/", (req, res) => {
-    StudentModel.search(req.query, res.callback)
+    res.callback(null, md5("hello"))
+    // StudentModel.search(req.query, res.callback)
 })
 router.get(
     "/:id",
@@ -8,7 +10,7 @@ router.get(
         params: {
             type: "object",
             properties: {
-                id: { 
+                id: {
                     type: "string",
                     format: "objectId"
                 }
