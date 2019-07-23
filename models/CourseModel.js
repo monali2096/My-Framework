@@ -1,5 +1,3 @@
-
-
 export default {
     /**
      * This function adds one to its input.
@@ -19,15 +17,12 @@ export default {
         const cour = new Course(data)
         Course.save(callback)
     },
-    lodashFunctions:(data,callback)=>{
-        
+    lodashFunctions: (data, callback) => {
         var obj = {}
-        obj.each =_.each(data,function(n){
+        obj.each = _.each(data, function(n) {
             n.type = "demo"
         })
-        
-        
-        callback(null,obj)
+
+        callback(null, obj)
     }
-    
 }
