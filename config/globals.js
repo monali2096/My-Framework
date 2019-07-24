@@ -6,3 +6,5 @@
 global._ = require("lodash")
 
 global.md5 = require("md5")
+
+global.moment=require("moment")
