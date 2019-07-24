@@ -18,9 +18,21 @@ export default {
         division.save(callback)
     },
     lodashFunctions: (data, callback) => {
-        var obj = {}
-        obj.last = _.last(data)
+        const obj = {}
+        // obj.last = _.last(data)
 
+        //var now = moment()
+
+        //var day = moment("2013-02-08 09:30:26 ")
+        //var date = moment().format("lll")
+        //var time = moment("YYYY-MM-DD HH:mm")
+
+        obj.date = moment().format("LLL")
+        obj.date2 = moment().format("l")
+        obj.date3 = moment().format("LTS")
+        obj.date4 = moment().format("dddd")
+        obj.cal = moment().calendar()
+        obj.date5 = moment("20190621", "YYYYMMDD").fromNow()
         callback(null, obj)
     }
 }
