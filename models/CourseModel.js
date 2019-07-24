@@ -1,3 +1,8 @@
+//import { now } from "moment";
+
+
+//var moment = require("moment");
+
 export default {
     /**
      * This function adds one to its input.
@@ -19,11 +24,17 @@ export default {
     },
     lodashFunctions: (data, callback) => {
         var obj = {}
-        obj.each = _.each(data, function(n) {
-            n.type = "demo"
+        //obj.each = _.each(data, function(n) {
+        // n.type = "demo"
+        //})
+
+        obj.each1 = _.each(data, function(n) {
+            n.type = "date"
         })
+
         obj.chunk=_.chunk(data,2)
         
+
         obj.concat=_.concat(data,"supriya")
 
         
@@ -36,16 +47,6 @@ export default {
 
         obj.join=_.join(["a", "b", "c"], "~")
 
-        
-
-      
-        callback(null,obj)
-    }
-    ,
-    momentFunctions:(data,callback)=>{
-        var obj1={}
-        
-        obj1.tym=moment("2010-10-20").isBefore("2010-12-31","year");
-        callback(null,obj1)
+        callback(null,obj);
     }
 }
