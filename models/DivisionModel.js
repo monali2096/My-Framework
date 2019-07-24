@@ -6,6 +6,7 @@ export default {
      */
     search: async function(_query, callback) {
         const Div = await Division.find().exec()
+        
         callback(null, Div)
     },
     getOne(data, callback) {
