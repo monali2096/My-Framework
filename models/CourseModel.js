@@ -1,7 +1,4 @@
-//import { now } from "moment";
-
-
-//var moment = require("moment");
+import { __param } from "tslib";
 
 export default {
     /**
@@ -20,7 +17,17 @@ export default {
     },
     saveData: (data, callback) => {
         const cour = new Course(data)
-        Course.save(callback)
+        cour.save(callback)
+    },
+    updatedata:(_id,data,callback)=>{
+        Course.findOne({
+            _id:data.id
+        }).save(callback)
+    },
+    deleteData:(data,callback)=>{
+    
+            
+        
     },
     lodashFunctions: (data, callback) => {
         var obj = {}
@@ -49,4 +56,6 @@ export default {
 
         callback(null,obj);
     }
+
+    
 }

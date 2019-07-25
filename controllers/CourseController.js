@@ -5,9 +5,11 @@ router.get("/lodash/:id", (req, res) => {
     CourseModel.lodashFunctions(req.body, res.callback)
 })
 
+
 router.get("/", (req, res) => {
     CourseModel.search(req.query, res.callback)
 })
+
 router.get(
     "/:id",
     ValidateRequest({
@@ -29,7 +31,7 @@ router.post("/save", (req, res) => {
     CourseModel.saveData(req.body, res.callback)
 })
 router.put("/:id", (req, res) => {
-    res.send(`Update For Id ${req.params.id}`)
+    CourseModel.updateData(req.params,req.body,res.callback)
 })
 router.patch("/:id", (req, res) => {
     res.send(`Path For Id ${req.params.id}`)

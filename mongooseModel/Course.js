@@ -1,6 +1,9 @@
 var schema=new Schema({
+    
+    courseId:String,
     courseName: String,
-    courseId:String
+    courseNo:Number
+    //courseDesc:String
     
 
 })
