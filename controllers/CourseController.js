@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 })
 
 router.get(
-    "/:id",
+    "/:id",                
     ValidateRequest({
         params: {
             type: "object",

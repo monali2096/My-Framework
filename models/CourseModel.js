@@ -19,16 +19,6 @@ export default {
         const cour = new Course(data)
         cour.save(callback)
     },
-    updatedata:(_id,data,callback)=>{
-        Course.findOne({
-            _id:data.id
-        }).save(callback)
-    },
-    deleteData:(data,callback)=>{
-    
-            
-        
-    },
     lodashFunctions: (data, callback) => {
         var obj = {}
         //obj.each = _.each(data, function(n) {
