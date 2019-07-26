@@ -16,5 +16,13 @@ export default {
     saveData: (data, callback) => {
         const student = new Student(data)
         student.save(callback)
+    },
+    
+    populateData:(data,callback)=>{
+        Student.findOne({
+            _id:data.id
+        }).populate("course").exec(callback)
     }
 }
+
+

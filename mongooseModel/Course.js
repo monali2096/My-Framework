@@ -2,7 +2,8 @@ var schema=new Schema({
     
     courseId:String,
     courseName: String,
-    courseNo:Number
+    courseNo:Number,
+    
     //courseDesc:String
     
 
