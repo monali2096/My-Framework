@@ -36,10 +36,8 @@ export default {
         Division.count({})
             .count()
             .exec(callback)
-    },
-    populateData: (data, callback) => {
-        Student.find({}).populate("Division")
     }
+   
     //}
     // lodashFunctions: (data, callback) => {
     //     const obj = {}

@@ -42,7 +42,5 @@ router.post("/:name", (req, res) => {
 router.post("/count", (req, res) => {
     DivisionModel.count(req.body, res.callback)
 })
-router.get("/:id", (req, res) => {
-    StudentModel.populateData(req.param, res.callback)
-})
+
 export default router

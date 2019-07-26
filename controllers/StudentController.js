@@ -32,7 +32,7 @@ router.patch("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
     res.send(`Delete For Id ${req.params.id}`)
 })
-router.get("/:id", (req, res) => {
+router.get("/stud/:id", (req, res) => {
     StudentModel.populateData(req.param, res.callback)
 })
 export default router
