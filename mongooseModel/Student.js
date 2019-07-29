@@ -1,4 +1,4 @@
-import Course from "./Course"
+import Student from "./Student"
 
 var schema = new Schema({
     name: String,

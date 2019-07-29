@@ -20,8 +20,8 @@ router.get(
         StudentModel.getOne(req.params, res.callback)
     }
 )
-router.get("stud/:id",(req,res)=>{
-    StudentModel.populateData(req.params,res.callback)
+router.get("stud/:id", (req, res) => {
+    StudentModel.populateData(req.params, res.callback)
 })
 router.post("/", (req, res) => {
     StudentModel.saveData(req.body, res.callback)
@@ -35,7 +35,5 @@ router.patch("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
     res.send(`Delete For Id ${req.params.id}`)
 })
-router.get("/stud/:id", (req, res) => {
-    StudentModel.populateData(req.param, res.callback)
-})
+
 export default router
