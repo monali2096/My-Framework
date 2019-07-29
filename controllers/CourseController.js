@@ -1,4 +1,4 @@
-import CourseModel from "../models/CourseModel";
+import CourseModel from "../models/CourseModel"
 
 const router = Router()
 router.get("/lodash/:id", (req, res) => {
@@ -9,7 +9,6 @@ router.get("/lodash/:id", (req, res) => {
 router.get("/", (req, res) => {
     CourseModel.search(req.query, res.callback)
 })
-
 router.get(
     "/:id",                
     ValidateRequest({
@@ -31,12 +30,12 @@ router.post("/save", (req, res) => {
     CourseModel.saveData(req.body, res.callback)
 })
 router.put("/:id", (req, res) => {
-    CourseModel.updateData(req.params,req.body,res.callback)
+    CourseModel.updateData(req.params, req.body, res.callback)
 })
 router.patch("/:id", (req, res) => {
     res.send(`Path For Id ${req.params.id}`)
 })
 router.delete("/:id", (req, res) => {
-    res.send(`Delete For Id ${req.params.id}`)
+    CourseModel.deleteData(req.params,res.callback)
 })
 export default router

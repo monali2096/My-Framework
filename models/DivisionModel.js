@@ -5,8 +5,8 @@ export default {
      * @returns {number} that number, plus one.
      */
     search: async function(_query, callback) {
-        Division.find().exec()
-        callback(null, Div)
+        const division = await Division.find().exec()
+        callback(null, division)
     },
     getOne(data, callback) {
         Division.findOne({
@@ -37,7 +37,7 @@ export default {
             .count()
             .exec(callback)
     }
-   
+
     //}
     // lodashFunctions: (data, callback) => {
     //     const obj = {}

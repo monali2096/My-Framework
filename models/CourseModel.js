@@ -1,4 +1,4 @@
-import { __param } from "tslib";
+import { __param } from "tslib"
 
 export default {
     /**
@@ -10,6 +10,7 @@ export default {
         const cour = await Course.find().exec()
         callback(null, cour)
     },
+
     getOne(data, callback) {
         Course.findOne({
             _id: data.id
@@ -19,6 +20,23 @@ export default {
         const cour = new Course(data)
         cour.save(callback)
     },
+
+    updateData: (data, bodydata, callback) => {
+        Course.findOneAndUpdate(
+            { _id: data.id },
+            { $set: bodydata },
+            {
+                new: true
+            }
+        ).exec(callback)
+    }
+    ,
+    deleteData:(data,callback)=>{
+        Course.findOneAndDelete({
+            _id: data.id 
+        }).exec(callback)
+    }
+    ,
     lodashFunctions: (data, callback) => {
         var obj = {}
         //obj.each = _.each(data, function(n) {
@@ -44,7 +62,7 @@ export default {
 
         obj.join=_.join(["a", "b", "c"], "~")
 
-        callback(null,obj);
+        callback(null,obj)
     }
 
     
