@@ -25,6 +25,10 @@ export default {
             .count()
             .exec(callback)
     },
+    replaceData:(data,body,callback)=>{
+        //console.log(data,body)
+        Course.replaceOne({_id:data.id},body).exec(callback)
+    },
     
     updateData: (data, bodydata, callback) => {
         Course.findOneAndUpdate(
@@ -66,6 +70,23 @@ export default {
         obj.join=_.join(["a", "b", "c"], "~")
 
         callback(null,obj)
+    },
+
+    momentFunctions: (data, callback) => {
+        var obj = {}
+        obj.a=moment("20180620", "YYYYMMDD").fromNow()
+        obj.now=moment().format("MMM Do YY")
+
+        obj.startDay=moment().startOf("day").fromNow()
+
+        obj.oneDayplus=moment().add(1, "days").calendar()
+
+        obj.time=moment().format("LTS")
+
+        
+        callback(null,obj)
     }
+
+
   
 }

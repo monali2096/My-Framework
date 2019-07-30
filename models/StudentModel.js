@@ -18,11 +18,11 @@ export default {
         student.save(callback)
     },
 
-    populateData: (data, callback) => {
+    populateData1: (data, callback) => {
         Student.findOne({
             _id: data.id
         })
-            .populate("division")
+            .populate("course")
             .exec(callback)
     }
 }

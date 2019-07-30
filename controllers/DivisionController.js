@@ -27,12 +27,17 @@ router.get(
 router.post("/save", (req, res) => {
     DivisionModel.saveData(req.body, res.callback)
 })
+
+
+
 router.put("/:id", (req, res) => {
     DivisionModel.updateData(req.params, req.body, res.callback)
 })
 router.patch("/:id", (req, res) => {
     res.send(`Path For Id ${req.params.id}`)
 })
+
+
 router.delete("/:id", (req, res) => {
     DivisionModel.deleteData(req.params, res.callback)
 })

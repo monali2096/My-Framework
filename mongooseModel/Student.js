@@ -6,7 +6,12 @@ var schema = new Schema({
     email: String,
     division: {
         type: Schema.Types.ObjectId,
-        ref: "division",
+        ref: "Division",
+        index: true
+    },
+    course: {
+        type: Schema.Types.ObjectId,
+        ref: "Course",
         index: true
     }
 })
