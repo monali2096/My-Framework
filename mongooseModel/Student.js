@@ -1,14 +1,13 @@
-import Course from "./Course"
+import Student from "./Student"
 
 var schema = new Schema({
     name: String,
     parent: String,
     email: String,
-    course:{
-        type:Schema.Types.ObjectId,
-        ref:"Course",
-        index :true
+    division: {
+        type: Schema.Types.ObjectId,
+        ref: "division",
+        index: true
     }
-    
 })
 export default mongoose.model("Student", schema)

@@ -17,12 +17,12 @@ export default {
         const student = new Student(data)
         student.save(callback)
     },
-    
-    populateData:(data,callback)=>{
+
+    populateData: (data, callback) => {
         Student.findOne({
-            _id:data.id
-        }).populate("course").exec(callback)
+            _id: data.id
+        })
+            .populate("division")
+            .exec(callback)
     }
 }
-
-

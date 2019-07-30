@@ -4,7 +4,7 @@ const router = Router()
 router.get("/lodash/:id", (req, res) => {
     DivisionModel.lodashFunctions(req.body, res.callback)
 })
-router.get("/", (req, res) => {
+router.get("/search", (req, res) => {
     DivisionModel.search(req.query, res.callback)
 })
 router.get(
@@ -28,12 +28,19 @@ router.post("/save", (req, res) => {
     DivisionModel.saveData(req.body, res.callback)
 })
 router.put("/:id", (req, res) => {
-    res.send(`Update For Id ${req.params.id}`)
+    DivisionModel.updateData(req.params, req.body, res.callback)
 })
 router.patch("/:id", (req, res) => {
     res.send(`Path For Id ${req.params.id}`)
 })
 router.delete("/:id", (req, res) => {
-    res.send(`Delete For Id ${req.params.id}`)
+    DivisionModel.deleteData(req.params, res.callback)
 })
+router.post("/:name", (req, res) => {
+    DivisionModel.findData(req.body, res.callback)
+})
+router.post("/count", (req, res) => {
+    DivisionModel.count(req.body, res.callback)
+})
+
 export default router

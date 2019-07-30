@@ -1,4 +1,4 @@
-import { __param } from "tslib"
+import { param } from "tslib"
 
 export default {
     /**
@@ -20,7 +20,15 @@ export default {
         const cour = new Course(data)
         cour.save(callback)
     },
-
+    count: async function(data, callback) {
+        Course.find({})
+            .count()
+            .exec(callback)
+    },
+    replaceData:(data,body,callback)=>{
+        //console.log(data,body)
+        Course.replaceOne({_id:data.id},body).exec(callback)
+    },
     updateData: (data, bodydata, callback) => {
         Course.findOneAndUpdate(
             { _id: data.id },
@@ -29,8 +37,7 @@ export default {
                 new: true
             }
         ).exec(callback)
-    }
-    ,
+    },
     deleteData:(data,callback)=>{
         Course.findOneAndDelete({
             _id: data.id 
@@ -64,6 +71,5 @@ export default {
 
         callback(null,obj)
     }
-
-    
+  
 }

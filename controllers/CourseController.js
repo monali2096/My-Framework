@@ -4,7 +4,9 @@ const router = Router()
 router.get("/lodash/:id", (req, res) => {
     CourseModel.lodashFunctions(req.body, res.callback)
 })
-
+router.get("/moment/:id", (req, res) => {
+    CourseModel.momentFunctions(req.body, res.callback)
+})
 
 router.get("/", (req, res) => {
     CourseModel.search(req.query, res.callback)
@@ -29,8 +31,16 @@ router.get(
 router.post("/save", (req, res) => {
     CourseModel.saveData(req.body, res.callback)
 })
+
+router.post("/count",(req,res)=>{
+    CourseModel.count(req.body,res.callback)
+})
+
 router.put("/:id", (req, res) => {
     CourseModel.updateData(req.params, req.body, res.callback)
+})
+router.put("/co/:id", (req, res) => {
+    CourseModel.replaceData(req.params,req.body, res.callback)
 })
 router.patch("/:id", (req, res) => {
     res.send(`Path For Id ${req.params.id}`)

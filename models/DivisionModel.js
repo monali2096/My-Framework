@@ -5,8 +5,8 @@ export default {
      * @returns {number} that number, plus one.
      */
     search: async function(_query, callback) {
-        Division.find().exec()
-        callback(null, Div)
+        const division = await Division.find().exec()
+        callback(null, division)
     },
     getOne(data, callback) {
         Division.findOne({
@@ -37,27 +37,35 @@ export default {
             .count()
             .exec(callback)
     },
-    populateData: (data, callback) => {
-        Student.find({}).populate("Division")
+
+    lodashFunctions: (data, callback) => {
+        const obj = {}
+        obj.last = _.last(data)
+
+        obj.each = _.each(data, function(n) {
+            n.type = "demo"
+        })
+
+        data = ["one", "two", "three", "four", "five", "six"]
+        obj.chunk = _.chunk(data, 3)
+        // console.log(obj)
+        obj.each = _.each("type")
+        obj.difference = _.difference([2, 1], [2, 3])
+
+        //var now = moment()
+
+        obj.day = moment("2013-02-08 09:30:26 ")
+        //     //var date = moment().format("lll")
+        obj.time = moment("YYYY-MM-DD HH:mm")
+
+        obj.date = moment().format("LLL")
+        obj.date2 = moment().format("l")
+        obj.date3 = moment().format("LTS")
+        //     obj.date4 = moment().format("dddd")
+        obj.cal = moment().calendar()
+        obj.date5 = moment("20190621", "YYYYMMDD").fromNow()
+        obj.date6 = moment().format("dddd")
+
+        callback(null, obj)
     }
-    //}
-    // lodashFunctions: (data, callback) => {
-    //     const obj = {}
-    //     // obj.last = _.last(data)
-
-    //     //var now = moment()
-
-    //     //var day = moment("2013-02-08 09:30:26 ")
-    //     //var date = moment().format("lll")
-    //     //var time = moment("YYYY-MM-DD HH:mm")
-
-    //     obj.date = moment().format("LLL")
-    //     obj.date2 = moment().format("l")
-    //     obj.date3 = moment().format("LTS")
-    //     obj.date4 = moment().format("dddd")
-    //     obj.cal = moment().calendar()
-    //     obj.date5 = moment("20190621", "YYYYMMDD").fromNow()
-    //     obj.date6 = moment().format("dddd")
-
-    //     callback(null, obj)
 }
