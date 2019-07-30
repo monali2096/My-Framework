@@ -19,7 +19,8 @@ export default {
     },
 
     populateData: (data, callback) => {
-        Student.findOne({
+        console.log("in student model ", data)
+        Student.find({
             _id: data.id
         })
             .populate("division")

@@ -20,7 +20,8 @@ router.get(
         StudentModel.getOne(req.params, res.callback)
     }
 )
-router.get("stud/:id", (req, res) => {
+router.get("/stud/:id", (req, res) => {
+    console.log(req.params)
     StudentModel.populateData(req.params, res.callback)
 })
 router.post("/", (req, res) => {
