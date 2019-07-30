@@ -26,11 +26,21 @@ router.get(
         CourseModel.getOne(req.params, res.callback)
     }
 )
+
+
 router.post("/save", (req, res) => {
     CourseModel.saveData(req.body, res.callback)
 })
+
+router.post("/count",(req,res)=>{
+    CourseModel.count(req.body,res.callback)
+})
+
 router.put("/:id", (req, res) => {
     CourseModel.updateData(req.params, req.body, res.callback)
+})
+router.put("/co/:id", (req, res) => {
+    CourseModel.replaceData(req.params,req.body, res.callback)
 })
 router.patch("/:id", (req, res) => {
     res.send(`Path For Id ${req.params.id}`)
