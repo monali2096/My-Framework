@@ -25,10 +25,7 @@ export default {
             .count()
             .exec(callback)
     },
-    replaceData:(data,body,callback)=>{
-        //console.log(data,body)
-        Course.replaceOne({_id:data.id},body).exec(callback)
-    },
+    
     updateData: (data, bodydata, callback) => {
         Course.findOneAndUpdate(
             { _id: data.id },
@@ -42,8 +39,7 @@ export default {
         Course.findOneAndDelete({
             _id: data.id 
         }).exec(callback)
-    }
-    ,
+    },
     lodashFunctions: (data, callback) => {
         var obj = {}
         //obj.each = _.each(data, function(n) {

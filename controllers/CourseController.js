@@ -26,6 +26,8 @@ router.get(
         CourseModel.getOne(req.params, res.callback)
     }
 )
+
+
 router.post("/save", (req, res) => {
     CourseModel.saveData(req.body, res.callback)
 })
