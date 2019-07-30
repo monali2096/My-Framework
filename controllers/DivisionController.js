@@ -4,8 +4,11 @@ const router = Router()
 router.get("/lodash/:id", (req, res) => {
     DivisionModel.lodashFunctions(req.body, res.callback)
 })
-router.get("/search", (req, res) => {
+router.get("/", (req, res) => {
     DivisionModel.search(req.query, res.callback)
+})
+router.get("/:id", (req, res) => {
+    DivisionModel.find(req.params, res.callback)
 })
 router.get(
     "/:id",

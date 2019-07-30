@@ -23,6 +23,9 @@ router.get(
 router.get("/stud/:id",(req,res)=>{
     StudentModel.populateData1(req.params,res.callback)
 })
+router.get("/stu/:id",(req,res)=>{
+    StudentModel.populateData1(req.params,res.callback)
+})
 router.post("/", (req, res) => {
     StudentModel.saveData(req.body, res.callback)
 })

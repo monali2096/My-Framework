@@ -70,21 +70,6 @@ export default {
         obj.join=_.join(["a", "b", "c"], "~")
 
         callback(null,obj)
-    },
-
-    momentFunctions: (data, callback) => {
-        var obj = {}
-        obj.a=moment("20180620", "YYYYMMDD").fromNow()
-        obj.now=moment().format("MMM Do YY")
-
-        obj.startDay=moment().startOf("day").fromNow()
-
-        obj.oneDayplus=moment().add(1, "days").calendar()
-
-        obj.time=moment().format("LTS")
-
-        
-        callback(null,obj)
     }
 
 
