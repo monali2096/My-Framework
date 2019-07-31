@@ -12,10 +12,9 @@ export default {
     },
 
     getOne(data, callback) {
-        Course.findOne({
-            _id: data.id
-        }).exec(callback)
+        Course.findOne(data).exec(callback)
     },
+
     saveData: (data, callback) => {
         const cour = new Course(data)
         cour.save(callback)
@@ -25,7 +24,7 @@ export default {
             .count()
             .exec(callback)
     },
-    
+
     updateData: (data, bodydata, callback) => {
         Course.findOneAndUpdate(
             { _id: data.id },
@@ -35,9 +34,9 @@ export default {
             }
         ).exec(callback)
     },
-    deleteData:(data,callback)=>{
+    deleteData: (data, callback) => {
         Course.findOneAndDelete({
-            _id: data.id 
+            _id: data.id
         }).exec(callback)
     },
     lodashFunctions: (data, callback) => {
@@ -50,22 +49,18 @@ export default {
             n.type = "date"
         })
 
-        obj.chunk=_.chunk(data,2)
-        
+        obj.chunk = _.chunk(data, 2)
 
-        obj.concat=_.concat(data,"supriya")
+        obj.concat = _.concat(data, "supriya")
 
-        
-        obj.difference=_.findIndex(data, function(n)
-        { 
+        obj.difference = _.findIndex(data, function(n) {
             n.email == "abcdgmail"
         })
 
-        obj.drop=_.dropRight(data,1)
+        obj.drop = _.dropRight(data, 1)
 
-        obj.join=_.join(["a", "b", "c"], "~")
+        obj.join = _.join(["a", "b", "c"], "~")
 
-        callback(null,obj)
+        callback(null, obj)
     }
-  
 }

@@ -3,6 +3,11 @@ var schema = new Schema({
     parent: String,
     email: String,
     rollno: Number,
-    div: String
+    div: String,
+    student: {
+        type: Schema.Types.ObjectId,
+        ref: "Student",
+        index: true
+    }
 })
 export default mongoose.model("Division", schema)

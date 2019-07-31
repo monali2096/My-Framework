@@ -18,7 +18,28 @@ export default {
         division.save(callback)
     },
     find: (data, callback) => {
-        Division.findOne({ _id: data.id }).exec(callback)
+        Division.aggregate([
+            // { $match: { name: "suju" } },
+            //{ $skip: 5 },
+
+            { $project: { email: 1, name: 1, stud: 1, rollno: 1 } },
+
+            // {
+            //     $lookup: {
+            //         from: "students",
+            //         localField: "student",
+            //         foreignField: "_id",
+            //         as: "stud"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$stud"
+            //     }
+            // }
+            { $sort: { rollno: 1 } }
+            // { $limit: 5 }
+        ]).exec(callback)
     },
     updateData: (data, bodydata, callback) => {
         Division.findOneAndUpdate(
@@ -29,6 +50,7 @@ export default {
             }
         ).exec(callback)
     },
+
     deleteData: (data, callback) => {
         Division.deleteOne({ _id: data.id }).exec(callback)
     },

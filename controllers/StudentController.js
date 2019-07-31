@@ -24,6 +24,24 @@ router.get("/stud/:id", (req, res) => {
     console.log(req.params)
     StudentModel.populateData(req.params, res.callback)
 })
+router.post("/asyncFunctionalityWaterfall", (req, res) => {
+    async.waterfall(
+        [
+            function(callback) {
+                CourseModel.getOne(req.body, callback)
+            },
+            function(data, callback) {
+                StudentModel.getAll(
+                    {
+                        course: data._id
+                    },
+                    callback
+                )
+            }
+        ],
+        res.callback
+    )
+})
 router.post("/", (req, res) => {
     StudentModel.saveData(req.body, res.callback)
 })

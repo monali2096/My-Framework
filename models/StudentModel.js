@@ -17,13 +17,18 @@ export default {
         const student = new Student(data)
         student.save(callback)
     },
+    getOne(data, callback) {
+        Course.findOne(data).exec(callback)
+    },
+    getAll(data, callback) {
+        Student.find(data).exec(callback)
+    },
 
     populateData: (data, callback) => {
-        console.log("in student model ", data)
-        Student.find({
-            _id: data.id
-        })
-            .populate("division")
-            .exec(callback)
+        Student.aggregate([
+            { $match: { name: "monali" } },
+            { $skip: 5 }
+            //{ $count: "count" }
+        ]).exec(callback)
     }
 }
