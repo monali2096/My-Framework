@@ -5,6 +5,10 @@ router.get("/lodash/:id", (req, res) => {
     CourseModel.lodashFunctions(req.body, res.callback)
 })
 
+router.get("/moment/:id", (req, res) => {
+    CourseModel.momentFunctions(req.body, res.callback)
+})
+
 
 router.get("/", (req, res) => {
     CourseModel.search(req.query, res.callback)

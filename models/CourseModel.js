@@ -24,7 +24,6 @@ export default {
             .count()
             .exec(callback)
     },
-
     updateData: (data, bodydata, callback) => {
         Course.findOneAndUpdate(
             { _id: data.id },

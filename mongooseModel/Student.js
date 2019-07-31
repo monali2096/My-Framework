@@ -8,6 +8,11 @@ var schema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Division",
         index: true
+    },
+    course: {
+        type: Schema.Types.ObjectId,
+        ref: "Course",
+        index: true
     }
 })
 export default mongoose.model("Student", schema)
