@@ -20,29 +20,25 @@ router.get(
         StudentModel.getOne(req.params, res.callback)
     }
 )
-router.get("/stud/:id",(req,res)=>{
-    StudentModel.populateData1(req.params,res.callback)
+router.get("/stud/:id", (req, res) => {
+    StudentModel.populateData1(req.params, res.callback)
 })
-router.get("/stu/:id",(req,res)=>{
-    StudentModel.populateData1(req.params,res.callback)
+router.get("/stu/:id", (req, res) => {
+    StudentModel.populateData1(req.params, res.callback)
 })
 router.post("/asyncFunctionalityWaterfall", (req, res) => {
-    async.waterfall(
-        [
-            function(callback) {
-                CourseModel.getOne(req.body, callback)
-            },
-            function(data, callback) {
-                StudentModel.getAll(
-                    {
-                        course: data._id
-                    },
-                    callback
-                )
-            }
-        ],
-        res.callback
-    )
+    StudentModel.asyncFunctionalityWaterfall(req.body, res.callback)
+})
+
+router.post("/asyncFunctionalityParallel", (req, res) => {
+    StudentModel.asyncFunctionalityParallel(req.body, res.callback)
+})
+
+router.post("/asyncFunctionWhilst", (req, res) => {
+    StudentModel.asyncFunctionWhilst(req.body, res.callback)
+})
+router.post("/getLimitedStudents", (req, res) => {
+    StudentModel.getLimitedStudents(req.body, res.callback)
 })
 router.post("/", (req, res) => {
     StudentModel.saveData(req.body, res.callback)

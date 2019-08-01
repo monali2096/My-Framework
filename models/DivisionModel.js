@@ -9,15 +9,13 @@ export default {
         callback(null, division)
     },
     getOne(data, callback) {
-        Division.findOne({
-            _id: data.id
-        }).exec(callback)
+        Division.findOne(data).exec(callback)
     },
     saveData: (data, callback) => {
         const division = new Division(data)
         division.save(callback)
     },
-    find: (data, callback) => {
+    findStudent: (data, callback) => {
         Division.aggregate([
             // { $match: { name: "suju" } },
             //{ $skip: 5 },
