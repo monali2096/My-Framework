@@ -22,7 +22,7 @@ export default {
             // { $match: { name: "suju" } },
             //{ $skip: 5 },
 
-            { $project: { email: 1, name: 1, stud: 1, rollno: 1 } },
+            // { $project: { email: 1, name: 1, stud: 1, rollno: 1 } },
 
             // {
             //     $lookup: {
@@ -37,8 +37,22 @@ export default {
             //         path: "$stud"
             //     }
             // }
-            { $sort: { rollno: 1 } }
+            //{ $sort: { rollno: 1 } }
             // { $limit: 5 }
+
+            {
+                $facet: {
+                    result: [
+                        { $match: { name: "supriyakadam" } },
+                        { $skip: 1 },
+                        { $limit: 2 }
+                    ],
+                    count: [
+                        { $match: { name: "supriyakadam" } },
+                        { $count: "count" }
+                    ]
+                }
+            }
         ]).exec(callback)
     },
     updateData: (data, bodydata, callback) => {
