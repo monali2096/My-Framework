@@ -24,35 +24,41 @@ export default {
 
             // { $project: { email: 1, name: 1, stud: 1, rollno: 1 } },
 
-            // {
-            //     $lookup: {
-            //         from: "students",
-            //         localField: "student",
-            //         foreignField: "_id",
-            //         as: "stud"
-            //     }
-            // },
-            // {
-            //     $unwind: {
-            //         path: "$stud"
-            //     }
-            // }
-            //{ $sort: { rollno: 1 } }
-            // { $limit: 5 }
-
             {
                 $facet: {
                     result: [
-                        { $match: { name: "supriyakadam" } },
-                        { $skip: 1 },
-                        { $limit: 2 }
-                    ],
-                    count: [
-                        { $match: { name: "supriyakadam" } },
-                        { $count: "count" }
+                        {
+                            $lookup: {
+                                from: "students",
+                                localField: "student",
+                                foreignField: "_id",
+                                as: "stud"
+                            }
+                        },
+                        {
+                            $unwind: {
+                                path: "$stud"
+                            }
+                        }
                     ]
                 }
             }
+            //{ $sort: { rollno: 1 } }
+            // { $limit: 5 }
+
+            // {
+            //     $facet: {
+            //         result: [
+            //             { $match: { name: "supriyakadam" } },
+            //             { $skip: 1 },
+            //             { $limit: 2 }
+            //         ],
+            //         count: [
+            //             { $match: { name: "supriyakadam" } },
+            //             { $count: "count" }
+            //         ]
+            //     }
+            // }
         ]).exec(callback)
     },
     updateData: (data, bodydata, callback) => {
