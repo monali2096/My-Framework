@@ -84,20 +84,36 @@ export default {
             }
         )
     },
+    getLimitedStudent: (data, callback) => {
+        console.log(
+            "data.page * data.limit ",
+            data.page,
+            data.limit,
+            data.page * data.limit
+        )
+        Student.find({})
+            .limit(data.limit)
+            .skip(data.page)
+            .exec(callback)
+    },
     getLimitedStudents: (data, callback) => {
+        var isDone = true
         var page = 0
         async.whilst(
             function test() {
-                return page < 3
+                return isDone
             },
             function iter(callback) {
-                Student.find({}, { $skip: 0 }, { $limit: 2 }).exec(callback)
+                data.page = data.limit * page
 
-                console.log("in error", Student)
-                page++
-                setTimeout(function() {
-                    callback(null, Student)
-                }, 1000)
+                StudentModel.getLimitedStudent(data, function(err, data) {
+                    console.log(page, data)
+                    page++
+                    if (_.isEmpty(data)) {
+                        isDone = false
+                    }
+                    callback(err, data)
+                })
             },
             function(err, Student) {
                 console.log("in error", page)

@@ -40,6 +40,9 @@ router.post("/asyncFunctionWhilst", (req, res) => {
 router.post("/getLimitedStudents", (req, res) => {
     StudentModel.getLimitedStudents(req.body, res.callback)
 })
+router.post("/getLimitedStudent", (req, res) => {
+    StudentModel.getLimitedStudent(req.body, res.callback)
+})
 router.post("/", (req, res) => {
     StudentModel.saveData(req.body, res.callback)
 })
