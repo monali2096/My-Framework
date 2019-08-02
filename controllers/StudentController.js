@@ -1,7 +1,7 @@
 const router = Router()
-router.get("/", (req, res) => {
-    res.callback(null, md5("hello"))
-    // StudentModel.search(req.query, res.callback)
+router.get("/search", (req, res) => {
+    //res.callback(null, md5("hello"))
+    StudentModel.search(req.query, res.callback)
 })
 router.get(
     "/:id",
@@ -29,9 +29,14 @@ router.get("/stu/:id", (req, res) => {
 router.post("/asyncFunctionalityWaterfall", (req, res) => {
     StudentModel.asyncFunctionalityWaterfall(req.body, res.callback)
 })
-
+router.post("/asyncWaterfall", (req, res) => {
+    StudentModel.asyncWaterfall(req.body, res.callback)
+})
 router.post("/asyncFunctionalityParallel", (req, res) => {
     StudentModel.asyncFunctionalityParallel(req.body, res.callback)
+})
+router.post("/asyncParallel", (req, res) => {
+    StudentModel.asyncParallel(req.body, res.callback)
 })
 
 router.post("/asyncFunctionWhilst", (req, res) => {
@@ -42,6 +47,9 @@ router.post("/getLimitedStudents", (req, res) => {
 })
 router.post("/getLimitedStudent", (req, res) => {
     StudentModel.getLimitedStudent(req.body, res.callback)
+})
+router.post("/asyncConcat", (req, res) => {
+    StudentModel.asyncConcat(req.body, res.callback)
 })
 router.post("/", (req, res) => {
     StudentModel.saveData(req.body, res.callback)

@@ -8,13 +8,17 @@ export default {
         const division = await Division.find().exec()
         callback(null, division)
     },
-    getOne(data, callback) {
+    getOne: (data, callback) => {
         Division.findOne(data).exec(callback)
     },
     saveData: (data, callback) => {
         const division = new Division(data)
         division.save(callback)
     },
+    findAll(data, callback) {
+        Division.find(data).exec(callback)
+    },
+
     findStudent: (data, callback) => {
         Division.aggregate([
             // { $match: { name: "suju" } },

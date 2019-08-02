@@ -20,7 +20,10 @@ export default {
         student.save(callback)
     },
     getOne(data, callback) {
-        Course.findOne(data).exec(callback)
+        Division.findOne(data).exec(callback)
+    },
+    getOne(data, callback) {
+        Student.findOne(data).exec(callback)
     },
     getAll(data, callback) {
         Student.find(data).exec(callback)
@@ -50,76 +53,121 @@ export default {
             callback
         )
     },
-    asyncFunctionalityParallel: (data, callback) => {
-        async.parallel(
-            {
-                division: function(callback) {
-                    DivisionModel.findStudent({}, callback)
+
+    //*waterfall*//
+    asyncWaterfall: (data, callback) => {
+        async.waterfall(
+            [
+                function(callback) {
+                    StudentModel.getOne({ parent: data.parent }, callback)
                 },
-                student: function(callback) {
-                    StudentModel.getAll({}, callback)
+                function(students, callback) {
+                    console.log(students)
+                    StudentModel.getAll({ students: students._id }, callback)
                 }
-            },
+            ],
+
             callback
         )
-    },
-    asyncFunctionWhilst: (data, callback) => {
-        var count = 0
-
-        async.whilst(
-            function test() {
-                return count < 5
-            },
-            function iter(callback) {
-                console.log("in function intr ", count)
-
-                count++
-                setTimeout(function() {
-                    callback(null, count)
-                }, 1000)
-            },
-            function(err, n) {
-                console.log("in error ", count)
-                callback(err, n)
-            }
-        )
-    },
-    getLimitedStudent: (data, callback) => {
-        console.log(
-            "data.page * data.limit ",
-            data.page,
-            data.limit,
-            data.page * data.limit
-        )
-        Student.find({})
-            .limit(data.limit)
-            .skip(data.page)
-            .exec(callback)
-    },
-    getLimitedStudents: (data, callback) => {
-        var isDone = true
-        var page = 0
-        async.whilst(
-            function test() {
-                return isDone
-            },
-            function iter(callback) {
-                data.page = data.limit * page
-
-                StudentModel.getLimitedStudent(data, function(err, data) {
-                    console.log(page, data)
-                    page++
-                    if (_.isEmpty(data)) {
-                        isDone = false
-                    }
-                    callback(err, data)
-                })
-            },
-            function(err, Student) {
-                console.log("in error", page)
-                callback(err, Student)
-            }
-        )
     }
+    //concat function//
+    // asyncConcat: function(data, callback) {
+    //     async.concat([data.name, data.parent], function(err, data)
+    //     {
+    //     Student.findOne({}).exec(function(err, data)
+
+    //     })callback(data)
+    //     // async.concat
+    // }
+
+    // async.concat(['dir1','dir2','dir3'], fs.readdir, function(err, files) {
+    //     // files is now a list of filenames that exist in the 3 directories
+    // });
+
+    // asyncFunctionalityParallel: (data, callback) => {
+    //     async.parallel(
+    //         {
+    //             division: function(callback) {
+    //                 DivisionModel.findStudent({}, callback)
+    //             },
+    //             student: function(callback) {
+    //                 StudentModel.getAll({}, callback)
+    //             }
+    //         },
+    //         callback
+    //     )
+    // },
+
+    // asyncParallel: (data, callback) => {
+    //     async.parallel(
+    //         {
+    //             division: function(callback) {
+    //                 DivisionModel.findAll({}, callback)
+    //             },
+    //             Student: function(callback) {
+    //                 StudentModel.getAll({}, callback)
+    //             }
+    //         },
+    //         callback
+    //     )
+    // },
+
+    // asyncFunctionWhilst: (data, callback) => {
+    //     var count = 0
+
+    //     async.whilst(
+    //         function test() {
+    //             return count < 5
+    //         },
+    //         function iter(callback) {
+    //             console.log("in function intr ", count)
+
+    //             count++
+    //             setTimeout(function() {
+    //                 callback(null, count)
+    //             }, 1000)
+    //         },
+    //         function(err, n) {
+    //             console.log("in error ", count)
+    //             callback(err, n)
+    //         }
+    //     )
+    // },
+    // getLimitedStudent: (data, callback) => {
+    //     console.log(
+    //         "data.page * data.limit ",
+    //         data.page,
+    //         data.limit,
+    //         data.page * data.limit
+    //     )
+    //     Student.find({})
+    //         .limit(data.limit)
+    //         .skip(data.page)
+    //         .exec(callback)
+    // },
+    // getLimitedStudents: (data, callback) => {
+    //     var isDone = true
+    //     var page = 0
+    //     async.whilst(
+    //         function test() {
+    //             return isDone
+    //         },
+    //         function iter(callback) {
+    //             data.page = data.limit * page
+
+    //             StudentModel.getLimitedStudent(data, function(err, data) {
+    //                 console.log(page, data)
+    //                 page++
+    //                 if (_.isEmpty(data)) {
+    //                     isDone = false
+    //                 }
+    //                 callback(err, data)
+    //             })
+    //         },
+    //         function(err, Student) {
+    //             console.log("in error", page)
+    //             callback(err, Student)
+    //         }
+    //     )
+    // }
 }
-//find({}, { name: 1 }).exec(callback)
