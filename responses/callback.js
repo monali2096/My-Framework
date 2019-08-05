@@ -3,7 +3,9 @@ export default function(req, res) {
         if (err) {
             res.status(500).json(err)
         } else if (data) {
-            res.status(200).json(data)
+            console.log("callback.js", err, data, res)
+
+            res.json(data)
         } else {
             res.status(200).send()
         }

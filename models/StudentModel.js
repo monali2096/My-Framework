@@ -69,10 +69,10 @@ export default {
 
             callback
         )
-    }
-    //concat function//
+    },
+    //*concat function*//
     // asyncConcat: function(data, callback) {
-    //     async.concat([data.name, data.parent], function(err, data)
+    //     async.concat([data.name,data.parent], function(err, data)
     //     {
     //     Student.findOne({}).exec(function(err, data)
 
@@ -80,10 +80,23 @@ export default {
     //     // async.concat
     // }
 
-    // async.concat(['dir1','dir2','dir3'], fs.readdir, function(err, files) {
-    //     // files is now a list of filenames that exist in the 3 directories
-    // });
+    //  async.concat(['1','2','0'],  function(err, files) {
+    // //     // files is now a list of filenames that exist in the 3 directories
+    // // });
 
+    // asyncConcat: function(data, callback) {
+    //     async.concat(
+    //         [1, 2, 3],
+    //         (err, data) => {
+    //             console.log("err in", data)
+    //             //  next(null, val % 2 ? val : 0)
+    //         },
+    //         (err, data) => {
+    //             console.log(data) // [1, 3]
+    //         }
+    //     )
+    //     //.exec(callback)
+    // }
     // asyncFunctionalityParallel: (data, callback) => {
     //     async.parallel(
     //         {
@@ -170,4 +183,37 @@ export default {
     //         }
     //     )
     // }
+
+    asyncConcatLimit: (data, callback) => {
+        async.waterfall(
+            [
+                function(callback) {
+                    Student.find({})
+                        .lean()
+                        .exec(callback)
+                },
+                function(student, callback) {
+                    console.log("student:::::::::::::", student)
+                    async.concatLimit(
+                        student,
+                        3,
+                        function(stud, callback) {
+                            Division.find({
+                                student: stud._id
+                            }).exec(function(err, division) {
+                                if (division) {
+                                    stud.division = division
+                                    callback(null, stud)
+                                } else {
+                                    callback
+                                }
+                            })
+                        },
+                        callback
+                    )
+                }
+            ],
+            callback
+        )
+    }
 }

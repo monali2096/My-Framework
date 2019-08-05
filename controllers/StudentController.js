@@ -48,10 +48,10 @@ router.post("/getLimitedStudents", (req, res) => {
 router.post("/getLimitedStudent", (req, res) => {
     StudentModel.getLimitedStudent(req.body, res.callback)
 })
-router.post("/asyncConcat", (req, res) => {
-    StudentModel.asyncConcat(req.body, res.callback)
+router.post("/asyncConcatLimit", (req, res) => {
+    StudentModel.asyncConcatLimit(req.body, res.callback)
 })
-router.post("/", (req, res) => {
+router.post("/save", (req, res) => {
     StudentModel.saveData(req.body, res.callback)
 })
 router.put("/:id", (req, res) => {
