@@ -70,121 +70,95 @@ export default {
             callback
         )
     },
-    //*concat function*//
-    // asyncConcat: function(data, callback) {
-    //     async.concat([data.name,data.parent], function(err, data)
-    //     {
-    //     Student.findOne({}).exec(function(err, data)
 
-    //     })callback(data)
-    //     // async.concat
-    // }
+    asyncFunctionalityParallel: (data, callback) => {
+        async.parallel(
+            {
+                division: function(callback) {
+                    DivisionModel.findStudent({}, callback)
+                },
+                student: function(callback) {
+                    StudentModel.getAll({}, callback)
+                }
+            },
+            callback
+        )
+    },
 
-    //  async.concat(['1','2','0'],  function(err, files) {
-    // //     // files is now a list of filenames that exist in the 3 directories
-    // // });
+    asyncParallel: (data, callback) => {
+        async.parallel(
+            {
+                division: function(callback) {
+                    DivisionModel.findAll({}, callback)
+                },
+                Student: function(callback) {
+                    StudentModel.getAll({}, callback)
+                }
+            },
+            callback
+        )
+    },
 
-    // asyncConcat: function(data, callback) {
-    //     async.concat(
-    //         [1, 2, 3],
-    //         (err, data) => {
-    //             console.log("err in", data)
-    //             //  next(null, val % 2 ? val : 0)
-    //         },
-    //         (err, data) => {
-    //             console.log(data) // [1, 3]
-    //         }
-    //     )
-    //     //.exec(callback)
-    // }
-    // asyncFunctionalityParallel: (data, callback) => {
-    //     async.parallel(
-    //         {
-    //             division: function(callback) {
-    //                 DivisionModel.findStudent({}, callback)
-    //             },
-    //             student: function(callback) {
-    //                 StudentModel.getAll({}, callback)
-    //             }
-    //         },
-    //         callback
-    //     )
-    // },
+    asyncFunctionWhilst: (data, callback) => {
+        var count = 0
 
-    // asyncParallel: (data, callback) => {
-    //     async.parallel(
-    //         {
-    //             division: function(callback) {
-    //                 DivisionModel.findAll({}, callback)
-    //             },
-    //             Student: function(callback) {
-    //                 StudentModel.getAll({}, callback)
-    //             }
-    //         },
-    //         callback
-    //     )
-    // },
+        async.whilst(
+            function test() {
+                return count < 5
+            },
+            function iter(callback) {
+                console.log("in function intr ", count)
 
-    // asyncFunctionWhilst: (data, callback) => {
-    //     var count = 0
+                count++
+                setTimeout(function() {
+                    callback(null, count)
+                }, 1000)
+            },
+            function(err, n) {
+                console.log("in error ", count)
+                callback(err, n)
+            }
+        )
+    },
+    getLimitedStudent: (data, callback) => {
+        console.log(
+            "data.page * data.limit ",
+            data.page,
+            data.limit,
+            data.page * data.limit
+        )
+        Student.find({})
+            .limit(data.limit)
+            .skip(data.page)
+            .exec(callback)
+    },
+    getLimitedStudents: (data, callback) => {
+        var isDone = true
+        var page = 0
+        async.whilst(
+            function test() {
+                return isDone
+            },
+            function iter(callback) {
+                data.page = data.limit * page
 
-    //     async.whilst(
-    //         function test() {
-    //             return count < 5
-    //         },
-    //         function iter(callback) {
-    //             console.log("in function intr ", count)
+                StudentModel.getLimitedStudent(data, function(err, data) {
+                    console.log(page, data)
+                    page++
+                    if (_.isEmpty(data)) {
+                        isDone = false
+                    }
+                    callback(err, data)
+                })
+            },
+            function(err, Student) {
+                console.log("in error", page)
+                callback(err, Student)
+            }
+        )
+    },
 
-    //             count++
-    //             setTimeout(function() {
-    //                 callback(null, count)
-    //             }, 1000)
-    //         },
-    //         function(err, n) {
-    //             console.log("in error ", count)
-    //             callback(err, n)
-    //         }
-    //     )
-    // },
-    // getLimitedStudent: (data, callback) => {
-    //     console.log(
-    //         "data.page * data.limit ",
-    //         data.page,
-    //         data.limit,
-    //         data.page * data.limit
-    //     )
-    //     Student.find({})
-    //         .limit(data.limit)
-    //         .skip(data.page)
-    //         .exec(callback)
-    // },
-    // getLimitedStudents: (data, callback) => {
-    //     var isDone = true
-    //     var page = 0
-    //     async.whilst(
-    //         function test() {
-    //             return isDone
-    //         },
-    //         function iter(callback) {
-    //             data.page = data.limit * page
-
-    //             StudentModel.getLimitedStudent(data, function(err, data) {
-    //                 console.log(page, data)
-    //                 page++
-    //                 if (_.isEmpty(data)) {
-    //                     isDone = false
-    //                 }
-    //                 callback(err, data)
-    //             })
-    //         },
-    //         function(err, Student) {
-    //             console.log("in error", page)
-    //             callback(err, Student)
-    //         }
-    //     )
-    // }
-
-    asyncConcatLimit: (data, callback) => {
+    asyncConcatSeries: (data, callback) => {
         async.waterfall(
             [
                 function(callback) {
@@ -194,9 +168,9 @@ export default {
                 },
                 function(student, callback) {
                     console.log("student:::::::::::::", student)
-                    async.concatLimit(
+                    async.concatSeries(
                         student,
-                        3,
+
                         function(stud, callback) {
                             Division.find({
                                 student: stud._id
@@ -215,5 +189,57 @@ export default {
             ],
             callback
         )
+    },
+    // array
+    asyncConcat: (data, callback) => {
+        // console.log("data in", data)
+        var order = []
+        var array = [1, 3, 2]
+        var iterator = function(num, done) {
+            setTimeout(function() {
+                order.push(num)
+                done(null, [num])
+            }, num * 10)
+        }
+        async.concat(array, iterator, function(err, res) {
+            console.log(res) // [1, 2, 3];
+            console.log(order) // [1, 2, 3]
+        }),
+            callback
+    },
+    //concatseries//
+    // asyncConcatSeries: (data, callback) => {
+    //     var order = []
+    //     var array = [1, 3, 2]
+    //     var iterator = function(num, done) {
+    //         setTimeout(function() {
+    //             order.push(num)
+    //             done(null, [num])
+    //             //console.log("data in", num)
+    //         }, num * 10)
+    //     }
+    //     async.concatSeries(array, iterator, function(err, res) {
+    //         console.log(res) // [1, 3, 2];
+    //         console.log(order) // [1, 3, 2]
+    //     }),
+    //         callback
+    // },
+    // each function//
+    asyncEach: (data, callback) => {
+        var order = []
+        var array = [1, 3, 2]
+        var iterator = function(num, done) {
+            setTimeout(function() {
+                order.push(num)
+                console.log("num in", num)
+
+                done()
+            }, num * 10)
+        }
+        async.each(array, iterator, function(err, res) {
+            console.log(res) // undefined
+            console.log(order) // [1, 2, 3]
+        }),
+            callback
     }
 }

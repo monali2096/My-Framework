@@ -63,5 +63,14 @@ router.patch("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
     res.send(`Delete For Id ${req.params.id}`)
 })
+router.post("/asyncConcat", (req, res) => {
+    StudentModel.asyncConcat(req.body, res.callback)
+})
+router.post("/asyncConcatSeries", (req, res) => {
+    StudentModel.asyncConcatSeries(req.body, res.callback)
+})
+router.post("/asyncEach", (req, res) => {
+    StudentModel.asyncEach(req.body, res.callback)
+})
 
 export default router
