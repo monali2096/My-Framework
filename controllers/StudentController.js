@@ -20,11 +20,9 @@ router.get(
         StudentModel.getOne(req.params, res.callback)
     }
 )
+
 router.get("/stud/:id", (req, res) => {
-    StudentModel.populateData1(req.params, res.callback)
-})
-router.get("/stu/:id", (req, res) => {
-    StudentModel.populateData1(req.params, res.callback)
+    StudentModel.populateData(req.params, res.callback)
 })
 router.post("/asyncFunctionalityWaterfall", (req, res) => {
     StudentModel.asyncFunctionalityWaterfall(req.body, res.callback)

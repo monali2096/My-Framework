@@ -3,6 +3,7 @@ import DivisionModel from "./DivisionModel"
 export default {
     /**
      * This function adds one to its input.
+     * @file http://localhost:3000/Student/search
      * @param {number} input any number
      * @returns {number} that number, plus one.
      */
@@ -10,11 +11,22 @@ export default {
         const students = await Student.find().exec()
         callback(null, students)
     },
+    /**
+     *This function finds one user id.
+     * @param {object} data  user object with student_id
+     * @param {*} callback get response of one student
+     */
     getOne(data, callback) {
         Student.findOne({
             _id: data.id
         }).exec(callback)
     },
+    /**
+     *
+     * save the all data of students
+     * @param {object} data object request with name,parent,email.
+     *@param {*} callback  to get response save all the Student records in student table
+     */
     saveData: (data, callback) => {
         const student = new Student(data)
         student.save(callback)
@@ -25,18 +37,30 @@ export default {
     getOne(data, callback) {
         Student.findOne(data).exec(callback)
     },
+    /**
+     * Description
+     * Retrive all the data of students.
+     * @param {object} data object request with student_id
+     * @return {*} callback  to get response of all the Students
+     */
     getAll(data, callback) {
         Student.find(data).exec(callback)
     },
-
-    populateData: (data, callback) => {
-        Student.aggregate([
-            { $match: { name: "monali" } },
-            { $skip: 5 }
-            //{ $count: "count" }
-        ]).exec(callback)
-    },
     /**
+     * This function populate the  student record with division details of  that student
+     * @param {object} user object with student id
+     * @return{*} callback populate all division details in student data.
+     */
+    populateData: (data, callback) => {
+        Student.find({ _id: data.id })
+            .populate("division")
+            .exec(callback)
+    },
+
+    /**
+     * This is the async waterfall function.
+     * @param {object} Retrive one name of the division table.
+     * @return {array} Retrive all the division id .
      * data : {divisionName:"abc"}
      */
     asyncFunctionalityWaterfall: (data, callback) => {
@@ -54,7 +78,6 @@ export default {
         )
     },
 
-    //*waterfall*//
     asyncWaterfall: (data, callback) => {
         async.waterfall(
             [
@@ -70,7 +93,12 @@ export default {
             callback
         )
     },
-
+    /**
+     * This is the async parallel function. In this function run the task in parallel.
+     * @file http://localhost:3000/Student/asyncFunctionalityParallel
+     *@param {object} find all the deatails of the student in division.
+     @return {*} callback
+     */
     asyncFunctionalityParallel: (data, callback) => {
         async.parallel(
             {
@@ -98,7 +126,11 @@ export default {
             callback
         )
     },
-
+    /**
+     * This is the async whilst function.in this function .
+     * @param {number} input any number
+     * @return {number} callback
+     */
     asyncFunctionWhilst: (data, callback) => {
         var count = 0
 
@@ -120,6 +152,12 @@ export default {
             }
         )
     },
+    /**
+     * Description
+     * retrieve the student data of the Limited Students
+     * @param {Number} data object request with limit
+     * @param {object} callback using limit get response  of all the Student records.
+     */
     getLimitedStudent: (data, callback) => {
         console.log(
             "data.page * data.limit ",
@@ -157,7 +195,9 @@ export default {
             }
         )
     },
-
+    /**
+     *Find all data of students and all the divisions concat with student in series
+     */
     asyncConcatSeries: (data, callback) => {
         async.waterfall(
             [

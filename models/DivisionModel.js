@@ -8,13 +8,29 @@ export default {
         const division = await Division.find().exec()
         callback(null, division)
     },
+    /**
+     * This function retrive one data in division table.
+     * @param {object} data  user object with student_id
+     * @param {*} callback get response of one student in division table
+     */
     getOne: (data, callback) => {
         Division.findOne(data).exec(callback)
     },
+    /**
+     *
+     * save the all data of students
+     * @param {object} data object request with name,parent,email.
+     *@param {*} callback  to get response save all the Student records in division table
+     */
     saveData: (data, callback) => {
         const division = new Division(data)
         division.save(callback)
     },
+    /**
+     *
+     * @param {object} data object request with name,parent,email,div,rollno.
+     * @param {*} callback get response of all students data in division table.
+     */
     findAll(data, callback) {
         Division.find(data).exec(callback)
     },
@@ -63,6 +79,11 @@ export default {
             // }
         ]).exec(callback)
     },
+    /**
+     * This function find and update the records.
+     * @param {object} user object with student_id.
+     * @return {*} callback get response with updated record in division table.
+     */
     updateData: (data, bodydata, callback) => {
         Division.findOneAndUpdate(
             { _id: data.id },
@@ -72,13 +93,21 @@ export default {
             }
         ).exec(callback)
     },
-
+    /**
+     * This function delete one record of student in division table
+     * @param {object} user object with student_id
+     * @return {*} callback response of remove of one record in division table
+     */
     deleteData: (data, callback) => {
         Division.deleteOne({ _id: data.id }).exec(callback)
     },
     findData: (data, callback) => {
         Division.find({}, { name: 1 }).exec(callback)
     },
+    /** This function count the number of records in division table.
+     * @param {object} data user object with _id.
+     * @return {number} callback number
+     */
     count: (data, callback) => {
         Division.count({})
             .count()
