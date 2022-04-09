@@ -17,7 +17,7 @@
     "jshint": "^2.10.2",
     "md5": "^2.2.1",
     "mocha": "^6.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "morgan": "^1.9.1",
     "nodemon": "^1.19.1",
     "wohlig-framework-core": "latest"
